@@ -39,7 +39,7 @@ const formSchema = z.object({
 });
 
 const createPodcast = () => {
-  const [imagePrompt, setiImagePrompt] = useState("");
+  const [imagePrompt, setImagePrompt] = useState("");
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
     null
   );
@@ -51,7 +51,7 @@ const createPodcast = () => {
   );
   const [audioDuration, setAudioDuration] = useState(0);
 
-  const [voiceType, setVoiceType] = useState <string | null>(null);
+  const [voiceType, setVoiceType] = useState<string | null>(null);
   const [voicePrompt, setVoicePrompt] = useState("");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -173,7 +173,14 @@ const createPodcast = () => {
               setVoicePrompt={setVoicePrompt}
               setAudioDuration={setAudioDuration}
             />
-            <GenerateThumbnail />
+
+            <GenerateThumbnail
+              setImage={setImageUrl}
+              setImageStorageId={setImageStorageId}
+              image={imageUrl}
+              imagePrompt={imagePrompt}
+              setImagePrompt={setImagePrompt}
+            />
 
             <div className="mt-10 w-full">
               <Button
@@ -182,7 +189,7 @@ const createPodcast = () => {
               >
                 {isSubmitting ? (
                   <>
-                    Submitting
+                    Generating
                     <Loader size={20} className="animate-spin ml-2" />
                   </>
                 ) : (
