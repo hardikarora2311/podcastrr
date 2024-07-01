@@ -1,8 +1,12 @@
 "use client";
 
+import EmptyState from "@/components/EmptyState";
+import LoaderSpinner from "@/components/LoaderSpinner";
+import PodcastCard from "@/components/PodcastCard";
 import PodcastDetailPlayer from "@/components/PodcastDetailPlayer";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import Image from "next/image";
 import React from "react";
@@ -15,6 +19,15 @@ const PodcastDetails = ({
   const podcast = useQuery(api.podcasts.getPodcastById, {
     podcastId,
   });
+
+  const { user } = useUser();
+
+  const similarPodcasts = useQuery(api.podcasts.getPodcastByVoiceType, {
+    podcastId,
+  });
+
+  const isOwner = user?.id === podcast?.authorId;
+  if (!similarPodcasts || !podcast) return <LoaderSpinner />;
   return (
     <section className="flex w-ful flex-col">
       <header className="mt-9 flex items-center justify-between">
@@ -30,7 +43,11 @@ const PodcastDetails = ({
         </figure>
       </header>
 
-      <PodcastDetailPlayer />
+      <PodcastDetailPlayer
+        isOwner={isOwner}
+        podcastId={podcast._id}
+        {...podcast}
+       />
 
       <p className="text-white-2 text-16 pb-8 pt-[45px] font-medium max-md:text-center">
         {podcast?.podcastDesc}
@@ -53,7 +70,30 @@ const PodcastDetails = ({
 
       <section className="mt-8 flex flex-col gap-5">
         <h1 className="text-20 font-bold text-white-1">Similar Podcasts</h1>
-        
+
+        {similarPodcasts && similarPodcasts.length > 0 ? (
+          <div className="podcast_grid">
+            {similarPodcasts?.map(
+              ({ _id, podcastTitle, podcastDesc, imageUrl }) => {
+                return (
+                  <PodcastCard
+                    key={_id}
+                    imgUrl={imageUrl!}
+                    title={podcastTitle}
+                    description={podcastDesc}
+                    podcastId={_id}
+                  />
+                );
+              }
+            )}
+          </div>
+        ) : (
+          <EmptyState
+            title="No Similar Podcasts Found"
+            buttonLink="/discover"
+            buttonText="Discover More Podcast"
+          />
+        )}
       </section>
     </section>
   );

@@ -94,7 +94,7 @@ export const updateUser = internalMutation({
     await Promise.all(
       podcast.map(async (p) => {
         await ctx.db.patch(p._id, {
-          authorImageUrl: args.imageUrl,
+          authorImageIrl: args.imageUrl,
         });
       })
     );

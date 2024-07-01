@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "first-chameleon-16.convex.cloud",
       },
+      {
+        protocol: "https",
+        hostname: "img.clerk.com",
+      },
     ],
   },
 };
