@@ -106,7 +106,7 @@ const GeneratePodcast = (props: GeneratePodcastProps) => {
         >
           {isGenerating ? (
             <>
-              Submitting
+              Generating
               <Loader size={20} className="animate-spin ml-2" />
             </>
           ) : (
