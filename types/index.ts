@@ -31,7 +31,7 @@ export interface PodcastProps {
   audioStorageId: Id<"_storage"> | null;
   user: Id<"users">;
   podcastTitle: string;
-  podcastDescription: string;
+  podcastDesc: string;
   audioUrl: string | null;
   imageUrl: string | null;
   imageStorageId: Id<"_storage"> | null;
