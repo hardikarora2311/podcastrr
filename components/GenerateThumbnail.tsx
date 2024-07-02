@@ -80,6 +80,8 @@ const GenerateThumbnail = ({
   const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction);
 
   const generateImage = async () => {
+    setIsImageLoading(true);
+
     try {
       const response = await handleGenerateThumbnail({ prompt: imagePrompt });
 
