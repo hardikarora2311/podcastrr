@@ -41,7 +41,7 @@ const formSchema = z.object({
   podcastTitle: z.string().min(2),
   podcastDesc: z.string().min(2),
 });
-const createPodcast = () => {
+const CreatePodcast = () => {
   const router = useRouter();
   const [imagePrompt, setImagePrompt] = useState("");
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
@@ -245,4 +245,4 @@ const createPodcast = () => {
     </section>
   );
 };
-export default createPodcast;
+export default CreatePodcast;
