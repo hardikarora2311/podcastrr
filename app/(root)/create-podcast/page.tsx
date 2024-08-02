@@ -105,11 +105,11 @@ const CreatePodcast = () => {
       router.push("/");
     } catch (error) {
       console.log(error);
-      toast({
-        title: "Error",
-        description: "An error occured while creating podcast.",
-        variant: "destructive",
-      });
+      // toast({
+      //   title: "Error",
+      //   description: "An error occured while creating podcast.",
+      //   variant: "destructive",
+      // });
       setIsSubmitting(false);
     }
     console.log(data);
